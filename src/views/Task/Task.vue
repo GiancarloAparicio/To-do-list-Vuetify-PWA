@@ -1,16 +1,16 @@
 <template>
-	<div>fe</div>
+  <div>task</div>
 </template>
 
 <script>
-	const data = () => ({
-		//
-	});
+const data = () => ({
+  //
+});
 
-	export default {
-		name: 'Task',
-		data,
-	};
+export default {
+  name: "Task",
+  data,
+};
 </script>
 
 <style scoped></style>
