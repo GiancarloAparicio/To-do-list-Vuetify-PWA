@@ -27,14 +27,14 @@ const routesNavigation = {
 	},
 
 	mutations: {
-		changeRoutes: (state, payload) => {
+		handleRoutes: (state, payload) => {
 			state.routes = payload;
 		},
 	},
 
 	actions: {
-		handleRoutesAction: (store, payload) => {
-			store.commit('changeRoutes', payload);
+		changeRoutes: (store, payload) => {
+			store.commit('handleRoutes', payload);
 		},
 	},
 

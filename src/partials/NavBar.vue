@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card color="grey lighten-4" flat tile height="48px">
-      <v-toolbar dense>
+    <v-card color="grey lighten-4" flat tile height="60px">
+      <v-toolbar dense height="60px">
         <v-app-bar-nav-icon
           @click.stop="modalOpen = !modalOpen"
         ></v-app-bar-nav-icon>
@@ -14,9 +14,9 @@
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
 
-        <v-btn icon @click="openFavorite = !openFavorite">
-          <v-icon>mdi-heart</v-icon>
-          <List :open="openFavorite" />
+        <v-btn icon @click="openBell = !openBell">
+          <v-icon>mdi-bell</v-icon>
+          <List :open="openBell" />
         </v-btn>
 
         <v-btn icon @click="openSettings = !openSettings">
@@ -32,7 +32,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>John Leider</v-list-item-title>
+          <v-list-item-title> {{ getUser.name }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -43,14 +43,21 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import List from "../components/List";
 import NavigationRoutes from "../components/NavigationRoutes";
 
 const data = () => ({
   modalOpen: false,
-  openFavorite: false,
+  openBell: false,
   openSettings: false,
+
+  settings: ["account"],
 });
+
+const computed = {
+  ...mapGetters("user", ["getUser"]),
+};
 
 const props = {
   title: { default: "Report" },
@@ -66,7 +73,16 @@ export default {
   data,
   props,
   components,
+  computed,
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-card {
+  z-index: 50;
+}
+
+.v-navigation-drawer {
+  z-index: 100;
+}
+</style>

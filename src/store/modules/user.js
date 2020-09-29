@@ -2,18 +2,26 @@ const user = {
 	namespaced: true,
 
 	state: {
-		user: {},
+		user: {
+			name: 'User',
+			image: '',
+			theme: 'light',
+			listTaskCurrent: 'All tasks',
+		},
 	},
 
 	mutations: {
-		changeUser: (state, payload) => {
-			state.user = payload;
+		handleUser: (state, payload) => {
+			state.user = {
+				...state.user,
+				...payload,
+			};
 		},
 	},
 
 	actions: {
-		handleUserAction: (store, payload) => {
-			store.commit('changeUser', payload);
+		changeUser: (store, payload) => {
+			store.commit('handleUser', payload);
 		},
 	},
 

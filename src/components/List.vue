@@ -1,7 +1,10 @@
 <template>
-  <v-card>
+  <v-card app>
     <v-list :class="{ show: open, hidden: !open }">
       <v-subheader>{{ title }}</v-subheader>
+      <v-list-item v-for="(item, index) in list" :key="index">
+        <v-list-item-title>{{ item.title }}</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-card>
 </template>
@@ -18,6 +21,7 @@ const props = {
   open: {
     default: true,
   },
+  list: {},
 };
 
 export default {
@@ -31,7 +35,7 @@ export default {
 .v-list {
   top: 24px;
   right: 0;
-
+  z-index: 100 !important;
   transform-origin: top right;
   box-shadow: 0 3px 3px -3px rgba(0, 0, 0, 0.2),
     0 3px 12px 2px rgba(0, 0, 0, 0.12) !important;

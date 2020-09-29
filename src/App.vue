@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <NavBar title="To do List" />
-    <router-view />
+    <v-container>
+      <router-view />
+    </v-container>
   </v-app>
 </template>
 
