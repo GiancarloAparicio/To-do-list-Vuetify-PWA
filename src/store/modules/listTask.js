@@ -5,6 +5,16 @@ const listTask = {
 
 	state: {
 		tasks: {
+			All: [
+				{
+					name: 'Homework',
+					description: 'To do homework',
+					notification: false,
+					create_at: moment().format('L'),
+					finish_at: '2020-10-05',
+					hour_at: '05:40',
+				},
+			],
 			Work: [
 				{
 					name: 'Homework',
@@ -33,6 +43,7 @@ const listTask = {
 					...state.tasks[payload.currentListTask],
 					payload.newTask,
 				],
+				All: [...state.tasks.All, payload.newTask],
 			};
 		},
 	},

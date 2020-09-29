@@ -1,12 +1,14 @@
 <template>
-  <v-select
-    block
-    dense
-    outlined
-    v-model="select"
-    :items="tasks"
-    label="List task"
-  ></v-select>
+  <div>
+    <v-select
+      block
+      dense
+      outlined
+      v-model="select"
+      :items="tasks"
+      label="List task"
+    />
+  </div>
 </template>
 
 <script>
@@ -14,24 +16,42 @@ import { mapGetters, mapActions } from "vuex";
 import { listTask } from "../store/actions/user";
 
 const data = () => ({
-  select: "All tasks",
+  select: "All",
 });
 
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
+  ...mapGetters("user", ["getUser"]),
   tasks() {
-    let listTask = ["All tasks"];
+    let listTask = [];
+
     for (let task in this.getTasks) {
-      listTask.unshift(task);
+      listTask.push(task);
     }
+    if (this.all) {
+      return listTask;
+    }
+
+    let i = listTask.indexOf("All");
+    listTask.splice(i, 1);
+
     return listTask;
+  },
+};
+
+const props = {
+  all: {
+    default: true,
   },
 };
 
 const watch = {
   select() {
-    this.changeUser(listTask(this.select));
+    if (this.select !== undefined) this.changeUser(listTask(this.select));
     return this.select;
+  },
+  "getUser.listTaskCurrent"() {
+    this.select = this.getUser.listTaskCurrent;
   },
 };
 
@@ -45,6 +65,7 @@ export default {
   computed,
   watch,
   methods,
+  props,
 };
 </script>
 

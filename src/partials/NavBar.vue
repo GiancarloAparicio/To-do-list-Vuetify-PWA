@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="navBar">
     <v-card color="grey lighten-4" flat tile height="60px">
-      <v-toolbar dense height="60px">
+      <v-toolbar color="primary" dark dense height="60px">
         <v-app-bar-nav-icon
           @click.stop="modalOpen = !modalOpen"
         ></v-app-bar-nav-icon>
@@ -77,12 +77,14 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-card {
-  z-index: 50;
+<style >
+.navBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.v-navigation-drawer {
-  z-index: 100;
+.v-overlay__scrim {
+  height: 100vh !important;
 }
 </style>

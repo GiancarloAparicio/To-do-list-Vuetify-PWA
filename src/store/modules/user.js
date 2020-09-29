@@ -6,7 +6,7 @@ const user = {
 			name: 'User',
 			image: '',
 			theme: 'light',
-			listTaskCurrent: 'All tasks',
+			listTaskCurrent: 'All',
 		},
 	},
 

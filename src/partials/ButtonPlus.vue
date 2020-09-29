@@ -1,6 +1,11 @@
 <template>
-  <div class="text-center">
-    <v-dialog v-model="dialog" width="500">
+  <v-row justify="center">
+    <v-dialog
+      v-model="dialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           class="mx-2 plus"
@@ -13,17 +18,38 @@
           <v-icon dark> mdi-plus </v-icon>
         </v-btn>
       </template>
-
       <v-card>
-        <v-form id="newTask" class="px-7 py-7">
-          <v-toolbar-title class="pb-7"> Create Task: </v-toolbar-title>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="resetValidation">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Create new task:</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn dark text @click="createTask"> Save </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+        <v-form ref="form" class="px-5 py-7">
+          <v-container>
+            <v-row>
+              <v-col cols="5" sm="5">
+                <v-toolbar-title>Choose list:</v-toolbar-title>
+              </v-col>
+              <v-col cols="6" sm="6">
+                <ChooseListTask :all="false" />
+              </v-col>
+              <v-col cols="1" sm="1">
+                <CreateNewListTask />
+              </v-col>
+            </v-row>
+          </v-container>
           <v-text-field
             outlined
             v-model="name"
             label="Name Task:"
             required
             :rules="inputRules"
-            append-icon=" mdi-pencil"
+            append-icon="mdi-pencil"
           />
 
           <v-textarea
@@ -39,19 +65,10 @@
           <DatePicker @chooseDate="chooseDate" :rules="inputRules" />
 
           <HourPicker @chooseHour="chooseHour" :rules="inputRules" />
-
-          <v-container class="d-flex justify-center">
-            <v-btn class="mx-2" color="green" @click="createTask" dark>
-              Save</v-btn
-            >
-            <v-btn class="mx-2" color="red" @click="dialog = false" dark>
-              Cancel</v-btn
-            >
-          </v-container>
         </v-form>
       </v-card>
     </v-dialog>
-  </div>
+  </v-row>
 </template>
 
 <script>
@@ -61,6 +78,7 @@ import HourPicker from "../components/HourPicker";
 import ChooseListTask from "../partials/ChooseListTask";
 import { addNewTaskToCurrentList } from "../store/actions/listTask";
 import moment from "moment";
+import CreateNewListTask from "../partials/CreateNewListTask";
 
 const data = () => ({
   dialog: false,
@@ -75,22 +93,37 @@ const components = {
   DatePicker,
   HourPicker,
   ChooseListTask,
+  CreateNewListTask,
 };
 
 const methods = {
   ...mapActions("listTask", ["addNewTask"]),
+  ...mapActions("user", ["changeUser"]),
   chooseDate(date) {
     this.date = date;
   },
   chooseHour(hour) {
     this.hour = hour;
   },
+  resetForm() {
+    this.$refs.form.reset();
+    this.dialog = false;
+
+    this.changeUser({
+      listTaskCurrent: this.getUser.listTaskCurrent,
+    });
+  },
+  resetValidation() {
+    this.$refs.form.resetValidation();
+    this.dialog = false;
+  },
   createTask() {
     if (
-      this.date !== null &&
-      this.hour !== null &&
-      this.name !== "" &&
-      this.description !== null
+      this.date !== undefined &&
+      this.hour !== undefined &&
+      this.name !== undefined &&
+      this.description !== undefined &&
+      this.getUser.listTaskCurrent !== "All"
     ) {
       let currentList = this.getUser.listTaskCurrent;
       let newTask = {
@@ -103,12 +136,7 @@ const methods = {
       };
 
       this.addNewTask(addNewTaskToCurrentList(currentList, newTask));
-      this.dialog = false;
-      this.date = null;
-      this.hour = null;
-      this.name = "";
-      this.description = "";
-      document.getElementById("newTask").reset();
+      this.resetForm();
     }
   },
 };
@@ -128,7 +156,7 @@ export default {
 
 <style scoped>
 .v-btn.plus {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
 }
