@@ -11,6 +11,19 @@
       >
         {{ task.name }}
       </v-alert>
+
+      <v-alert
+        text
+        dense
+        color="teal"
+        icon="mdi-clock-fast"
+        border="left"
+        v-if="emptyList"
+      >
+        Sorry, the list you choose doesn't have any assigned tasks :(
+        <br />
+        Try again...?
+      </v-alert>
     </v-container>
     <ButtonPlus />
   </div>
@@ -30,6 +43,12 @@ const components = {
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
   ...mapGetters("user", ["getUser"]),
+  emptyList() {
+    if (this.getTasks[this.getUser.listTaskCurrent][0]) {
+      return false;
+    }
+    return true;
+  },
 };
 
 const methods = {
