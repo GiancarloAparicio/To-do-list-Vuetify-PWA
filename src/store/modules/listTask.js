@@ -8,6 +8,7 @@ const listTask = {
 			All: [
 				{
 					name: 'Homework',
+					id: 'a1b83137-4720-4822-82d3-0ac2cb70216a',
 					description: 'To do homework',
 					notification: false,
 					create_at: moment().format('L'),
@@ -18,6 +19,7 @@ const listTask = {
 			Work: [
 				{
 					name: 'Homework',
+					id: 'a1b83137-4720-4822-82d3-0ac2cb70216a',
 					description: 'To do homework',
 					notification: false,
 					create_at: moment().format('L'),

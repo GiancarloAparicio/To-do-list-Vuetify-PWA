@@ -1,8 +1,10 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const addNewListTask = (payload) => ({
 	...payload,
 });
 
-export const addNewTaskToCurrentList = (current, task) => ({
-	currentListTask: current,
-	newTask: task,
-});
+export const addNewTaskToCurrentList = (current, task) => {
+	let newTask = { ...task, id: `${uuidv4()}` };
+	return { currentListTask: current, newTask };
+};
