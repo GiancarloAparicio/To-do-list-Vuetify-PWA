@@ -39,6 +39,28 @@
 				</div>
 			</v-card-text>
 		</v-card>
+
+		<v-footer absolute padless>
+			<v-bottom-navigation>
+				<v-btn @click="back">
+					<span>Back</span>
+
+					<v-icon>mdi-backburger</v-icon>
+				</v-btn>
+
+				<v-btn @click="edit">
+					<span>Edit</span>
+
+					<v-icon>mdi-pencil</v-icon>
+				</v-btn>
+
+				<v-btn @click="finish">
+					<span>Finished task</span>
+
+					<v-icon>mdi-bookmark-check</v-icon>
+				</v-btn>
+			</v-bottom-navigation>
+		</v-footer>
 	</div>
 </template>
 
@@ -58,10 +80,25 @@
 		},
 	};
 
+	const methods = {
+		finish() {
+			console.log('Eliminar: ' + this.currentTask.name);
+		},
+		edit() {
+			console.log('Editar: ' + this.currentTask.name);
+		},
+		back() {
+			this.$router.push({
+				name: 'task',
+			});
+		},
+	};
+
 	export default {
 		name: 'Show',
 		data,
 		computed,
+		methods,
 	};
 </script>
 

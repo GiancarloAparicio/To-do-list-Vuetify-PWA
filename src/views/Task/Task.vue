@@ -72,7 +72,6 @@
 			return 'success';
 		},
 		getTask(task) {
-			console.log(task);
 			this.$router.push({
 				name: 'task.show',
 				params: { id: task.name.replaceAll(' ', '-'), taskId: task.id },
