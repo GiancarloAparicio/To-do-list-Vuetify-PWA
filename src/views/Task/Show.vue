@@ -48,11 +48,7 @@
 					<v-icon>mdi-backburger</v-icon>
 				</v-btn>
 
-				<v-btn @click="edit">
-					<span>Edit</span>
-
-					<v-icon>mdi-pencil</v-icon>
-				</v-btn>
+				<EditTask :task="currentTask" />
 
 				<v-btn @click="finish">
 					<span>Finished task</span>
@@ -61,11 +57,16 @@
 				</v-btn>
 			</v-bottom-navigation>
 		</v-footer>
+		<v-btn color="error d-block mx-auto mt-10" dark large>
+			Delete task
+		</v-btn>
 	</div>
 </template>
 
 <script>
 	import { mapGetters } from 'vuex';
+	import EditTask from '../../partials/EditTask';
+
 	const data = () => ({
 		time: 100,
 	});
@@ -94,11 +95,16 @@
 		},
 	};
 
+	const components = {
+		EditTask,
+	};
+
 	export default {
 		name: 'Show',
 		data,
 		computed,
 		methods,
+		components,
 	};
 </script>
 

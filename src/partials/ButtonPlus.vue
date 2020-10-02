@@ -62,9 +62,9 @@
 						v-model="description"
 					/>
 
-					<DatePicker @chooseDate="chooseDate" :rules="inputRules" />
+					<DatePicker @chooseDate="chooseDate" />
 
-					<HourPicker @chooseHour="chooseHour" :rules="inputRules" />
+					<HourPicker @chooseHour="chooseHour" />
 				</v-form>
 			</v-card>
 		</v-dialog>
