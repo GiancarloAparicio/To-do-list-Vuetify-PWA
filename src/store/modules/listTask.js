@@ -38,7 +38,7 @@ const listTask = {
 			};
 		},
 
-		handleCurrentListTask: (state, payload) => {
+		handleAddTask: (state, payload) => {
 			state.tasks = {
 				...state.tasks,
 				[payload.currentListTask]: [
@@ -46,6 +46,22 @@ const listTask = {
 					payload.newTask,
 				],
 				All: [...state.tasks.All, payload.newTask],
+			};
+		},
+
+		handleEditTask: (state, payload) => {
+			state.tasks = {
+				...state.tasks,
+				[payload.currentListTask]: [
+					...state.tasks[payload.currentListTask].filter(
+						(task) => task.id !== payload.task.id
+					),
+					payload.task,
+				],
+				All: [
+					...state.tasks.All.filter((task) => task.id !== payload.task.id),
+					payload.task,
+				],
 			};
 		},
 	},
@@ -56,7 +72,11 @@ const listTask = {
 		},
 
 		addNewTask: (store, payload) => {
-			store.commit('handleCurrentListTask', payload);
+			store.commit('handleAddTask', payload);
+		},
+
+		editTask: (store, payload) => {
+			store.commit('handleEditTask', payload);
 		},
 	},
 

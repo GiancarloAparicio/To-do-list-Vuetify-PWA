@@ -8,3 +8,7 @@ export const addNewTaskToCurrentList = (current, task) => {
 	let newTask = { ...task, id: `${uuidv4()}` };
 	return { currentListTask: current, newTask };
 };
+
+export const editTaskAction = (current, task) => {
+	return { currentListTask: current, task };
+};

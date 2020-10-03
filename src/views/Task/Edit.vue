@@ -21,7 +21,7 @@
 				<v-toolbar-title>Edit current task:</v-toolbar-title>
 				<v-spacer></v-spacer>
 				<v-toolbar-items>
-					<v-btn dark text @click="updateTask"> Update </v-btn>
+					<v-btn dark text @click="updateTask"> {{ setValues }} </v-btn>
 				</v-toolbar-items>
 			</v-toolbar>
 			<v-form ref="form" class="px-5 py-7">
@@ -54,9 +54,8 @@
 					v-model="description"
 				/>
 
-				<DatePicker @chooseDate="chooseDate" />
-
-				<HourPicker @chooseHour="chooseHour" />
+				<DatePicker @chooseDate="chooseDate" :value="date" />
+				<HourPicker @chooseHour="chooseHour" :value="hour" />
 			</v-form>
 		</v-card>
 	</v-dialog>
@@ -66,6 +65,8 @@
 	import ChooseListTask from './../../partials/ChooseListTask';
 	import DatePicker from '../../components/DatePicker';
 	import HourPicker from '../../components/HourPicker';
+	import { mapActions, mapGetters } from 'vuex';
+	import { editTaskAction } from '../../store/actions/listTask';
 
 	const data = () => ({
 		dialog: false,
@@ -77,9 +78,8 @@
 	});
 
 	const methods = {
+		...mapActions('listTask', ['editTask']),
 		closeForm() {
-			this.$refs.form.reset();
-			this.$refs.form.resetValidation();
 			this.dialog = false;
 		},
 		chooseDate(date) {
@@ -88,21 +88,40 @@
 		chooseHour(hour) {
 			this.hour = hour;
 		},
-		resetForm() {
-			this.$refs.form.reset();
-			this.dialog = false;
-
-			this.changeUser({
-				listTaskCurrent: this.getUser.listTaskCurrent,
-			});
-		},
-		resetValidation() {
-			this.$refs.form.resetValidation();
-			this.dialog = false;
-		},
 		updateTask() {
-			console.log('edit');
-			console.log(this.task);
+			if (
+				this.date !== undefined &&
+				this.hour !== undefined &&
+				this.name !== '' &&
+				this.description !== '' &&
+				this.getUser.listTaskCurrent !== 'All'
+			) {
+				let editTask = {
+					name: this.name,
+					id: this.task.id,
+					description: this.task.description,
+					notification: this.task.notification,
+					create_at: this.task.create_at,
+					finish_at: this.date,
+					hour_at: this.hour,
+				};
+
+				this.editTask(
+					editTaskAction(this.getUser.listTaskCurrent, editTask)
+				);
+				this.dialog = false;
+			}
+		},
+	};
+
+	const computed = {
+		...mapGetters('user', ['getUser']),
+		setValues() {
+			this.name = this.task.name;
+			this.description = this.task.description;
+			this.date = this.task.finish_at;
+			this.hour = this.task.hour_at;
+			return 'Update';
 		},
 	};
 
@@ -120,6 +139,7 @@
 		methods,
 		props,
 		components,
+		computed,
 	};
 </script>
 
