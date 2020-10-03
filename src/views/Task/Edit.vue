@@ -100,7 +100,8 @@ const methods = {
       let editTask = {
         name: this.name,
         id: this.task.id,
-        description: this.task.description,
+        list: this.task.list,
+        description: this.description,
         notification: this.task.notification,
         create_at: this.task.create_at,
         finish_at: this.date,
