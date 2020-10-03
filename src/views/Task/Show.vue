@@ -70,7 +70,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Edit from "./Edit";
-import { deleteTaskAction } from "../../store/actions/listTask";
 
 const data = () => ({
   time: 100,

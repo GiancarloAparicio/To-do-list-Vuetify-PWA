@@ -68,7 +68,6 @@ import ChooseListTask from "./../../partials/ChooseListTask";
 import DatePicker from "../../components/DatePicker";
 import HourPicker from "../../components/HourPicker";
 import { mapActions, mapGetters } from "vuex";
-import { editTaskAction } from "../../store/actions/listTask";
 
 const data = () => ({
   dialog: false,
@@ -108,7 +107,7 @@ const methods = {
         hour_at: this.hour,
       };
 
-      this.editTask(editTaskAction(this.task.list, editTask));
+      this.editTask(editTask);
       this.dialog = false;
     }
   },

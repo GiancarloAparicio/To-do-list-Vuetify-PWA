@@ -54,15 +54,15 @@ const listTask = {
 		handleEditTask: (state, payload) => {
 			state.tasks = {
 				...state.tasks,
-				[payload.currentListTask]: [
-					...state.tasks[payload.currentListTask].filter(
-						(task) => task.id !== payload.task.id
+				[payload.list]: [
+					...state.tasks[payload.list].filter(
+						(task) => task.id !== payload.id
 					),
-					payload.task,
+					payload,
 				],
 				All: [
-					...state.tasks.All.filter((task) => task.id !== payload.task.id),
-					payload.task,
+					...state.tasks.All.filter((task) => task.id !== payload.id),
+					payload,
 				],
 			};
 		},
