@@ -91,16 +91,16 @@ const methods = {
   },
   updateTask() {
     if (
-      this.date !== undefined &&
-      this.hour !== undefined &&
-      this.name !== "" &&
-      this.description !== ""
+      this.date != undefined &&
+      this.hour != undefined &&
+      this.name.trim() != "" &&
+      this.description.trim() != ""
     ) {
       let editTask = {
-        name: this.name,
+        name: this.name.trim(),
         id: this.task.id,
         list: this.task.list,
-        description: this.description,
+        description: this.description.trim(),
         notification: this.task.notification,
         create_at: this.task.create_at,
         finish_at: this.date,
