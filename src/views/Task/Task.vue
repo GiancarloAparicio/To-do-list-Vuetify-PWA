@@ -25,8 +25,8 @@
 					border="right"
 					:key="index"
 					v-for="(task, index) in getTasks[this.getUser.listTaskCurrent]"
-					dense
-					:type="getStatus(task.finish_at)"
+					dark
+					:color="getStatus(task.finish_at)"
 				>
 					{{ task.name }}
 				</v-alert>
