@@ -55,21 +55,14 @@
         </v-btn>
       </v-bottom-navigation>
     </v-footer>
-    <v-btn
-      @click="deleteCurrentTask"
-      color="error"
-      class="d-block mx-auto mt-10"
-      large
-    >
-      <v-icon left> mdi-alert </v-icon>
-      Delete task
-    </v-btn>
+    <DeleteTaskButton :currentTask="currentTask" />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import Edit from "./Edit";
+import DeleteTaskButton from "../../components/DeleteTaskButton";
 
 const data = () => ({
   time: 100,
@@ -86,13 +79,8 @@ const computed = {
 };
 
 const methods = {
-  ...mapActions("listTask", ["deleteTask"]),
   finish() {
     console.log("Terminar tarea: " + this.currentTask.name);
-  },
-  deleteCurrentTask() {
-    this.deleteTask(this.currentTask);
-    this.back();
   },
   back() {
     this.$router.push({
@@ -103,6 +91,7 @@ const methods = {
 
 const components = {
   Edit,
+  DeleteTaskButton,
 };
 
 export default {
