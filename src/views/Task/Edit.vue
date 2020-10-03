@@ -27,11 +27,13 @@
       <v-form ref="form" class="px-5 py-7">
         <v-container>
           <v-row>
-            <v-col cols="5" sm="5">
-              <v-toolbar-title>Choose list:</v-toolbar-title>
+            <v-col cols="6" sm="5">
+              <v-toolbar-title>List current:</v-toolbar-title>
             </v-col>
             <v-col cols="6" sm="6">
-              <strong> {{ this.task.list }}</strong>
+              <v-alert dark color="blue" dense>
+                <h3 class="text-center">{{ this.task.list }}</h3>
+              </v-alert>
             </v-col>
           </v-row>
         </v-container>
