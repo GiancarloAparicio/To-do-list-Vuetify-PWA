@@ -97,12 +97,9 @@ const methods = {
       this.description.trim() != ""
     ) {
       let editTask = {
+        ...this.task,
         name: this.name.trim(),
-        id: this.task.id,
-        list: this.task.list,
         description: this.description.trim(),
-        notification: this.task.notification,
-        create_at: this.task.create_at,
         finish_at: this.date,
         hour_at: this.hour,
       };

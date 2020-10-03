@@ -21,7 +21,11 @@
 
         <v-btn icon @click="openSettings = !openSettings">
           <v-icon>mdi-dots-vertical </v-icon>
-          <List :open="openSettings" />
+          <List :open="openSettings">
+            <ListItem>Finished tasks</ListItem>
+            <ListItem>Task lists</ListItem>
+            <ListItem>More apps</ListItem>
+          </List>
         </v-btn>
       </v-toolbar>
     </v-card>
@@ -45,6 +49,7 @@
 <script>
 import { mapGetters } from "vuex";
 import List from "../components/List";
+import ListItem from "../components/ListItem";
 import NavigationRoutes from "../components/NavigationRoutes";
 
 const data = () => ({
@@ -66,6 +71,7 @@ const props = {
 const components = {
   List,
   NavigationRoutes,
+  ListItem,
 };
 
 export default {

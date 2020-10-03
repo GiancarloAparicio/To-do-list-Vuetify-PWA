@@ -1,10 +1,7 @@
 <template>
-  <v-card app>
-    <v-list :class="{ show: open, hidden: !open }">
-      <v-subheader>{{ title }}</v-subheader>
-      <v-list-item v-for="(item, index) in list" :key="index">
-        <v-list-item-title>{{ item.title }}</v-list-item-title>
-      </v-list-item>
+  <v-card light>
+    <v-list class="px-2" :class="{ show: open, hidden: !open }">
+      <slot />
     </v-list>
   </v-card>
 </template>
@@ -15,13 +12,9 @@ const data = () => ({
 });
 
 const props = {
-  title: {
-    default: "Settings",
-  },
   open: {
     default: true,
   },
-  list: {},
 };
 
 export default {

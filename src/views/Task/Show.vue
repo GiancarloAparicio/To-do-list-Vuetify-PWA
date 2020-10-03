@@ -48,7 +48,7 @@
 
         <Edit :task="currentTask" />
 
-        <v-btn @click="finish">
+        <v-btn @click="finishTask">
           <span>Finished task</span>
 
           <v-icon>mdi-bookmark-check</v-icon>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Edit from "./Edit";
 import DeleteTaskButton from "../../components/DeleteTaskButton";
 
@@ -79,8 +79,13 @@ const computed = {
 };
 
 const methods = {
-  finish() {
-    console.log("Terminar tarea: " + this.currentTask.name);
+  ...mapActions("listTask", ["editTask"]),
+  finishTask() {
+    this.editTask({
+      ...this.currentTask,
+      status: true,
+    });
+    this.back();
   },
   back() {
     this.$router.push({
