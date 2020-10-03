@@ -66,6 +66,17 @@ const listTask = {
 				],
 			};
 		},
+		handleDeleteTask: (state, payload) => {
+			state.tasks = {
+				...state.tasks,
+				[payload.list]: [
+					...state.tasks[payload.list].filter(
+						(task) => task.id !== payload.id
+					),
+				],
+				All: [...state.tasks.All.filter((task) => task.id !== payload.id)],
+			};
+		},
 	},
 
 	actions: {
@@ -79,6 +90,9 @@ const listTask = {
 
 		editTask: (store, payload) => {
 			store.commit('handleEditTask', payload);
+		},
+		deleteTask: (store, payload) => {
+			store.commit('handleDeleteTask', payload);
 		},
 	},
 

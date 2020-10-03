@@ -5,7 +5,7 @@ const routesNavigation = {
 		routes: [
 			{
 				name: 'home',
-				path: './home',
+				path: './',
 				icon: 'mdi-home',
 			},
 			{

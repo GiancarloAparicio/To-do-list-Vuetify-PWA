@@ -1,7 +1,7 @@
 import Home from '../views/Home/Home.vue';
 
 const home = {
-	path: '/home',
+	path: '/',
 	name: 'home',
 	component: Home,
 	meta: {

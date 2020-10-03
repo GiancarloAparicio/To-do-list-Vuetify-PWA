@@ -12,3 +12,7 @@ export const addNewTaskToCurrentList = (current, task) => {
 export const editTaskAction = (current, task) => {
 	return { currentListTask: current, task };
 };
+
+export const deleteTaskAction = (task) => {
+	return task;
+};
