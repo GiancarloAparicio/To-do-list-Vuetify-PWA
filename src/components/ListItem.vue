@@ -1,5 +1,5 @@
 <template>
-  <v-list-item>
+  <v-list-item @click="click">
     <v-list-item-subtitle>
       <slot />
     </v-list-item-subtitle>
@@ -7,10 +7,18 @@
 </template>
 
 <script>
+const methods = {
+  click() {
+    this.$emit("click");
+  },
+};
+
 export default {
   name: "ListItem",
+  methods,
 };
 </script>
+
 
 <style scoped>
 </style>

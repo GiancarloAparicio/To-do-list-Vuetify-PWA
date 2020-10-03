@@ -63,7 +63,7 @@ const computed = {
     return true;
   },
   isRouteChildren() {
-    if (this.$route.params.id) {
+    if (this.$route.name !== "task") {
       return true;
     }
     return false;

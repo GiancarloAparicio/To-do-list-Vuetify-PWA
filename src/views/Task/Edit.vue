@@ -96,15 +96,13 @@ const methods = {
       this.name.trim() != "" &&
       this.description.trim() != ""
     ) {
-      let editTask = {
+      this.editTask({
         ...this.task,
         name: this.name.trim(),
         description: this.description.trim(),
         finish_at: this.date,
         hour_at: this.hour,
-      };
-
-      this.editTask(editTask);
+      });
       this.dialog = false;
     }
   },

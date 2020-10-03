@@ -27,9 +27,11 @@ const task = {
 			path: ':id',
 			name: 'task.show',
 			component: () => import('../views/Task/Show.vue'),
-			meta: {
-				name: 'task',
-			},
+		},
+		{
+			path: 'ends',
+			name: 'task.ends',
+			component: () => import('../views/Task/FinishedTasks.vue'),
 		},
 	],
 	meta: {

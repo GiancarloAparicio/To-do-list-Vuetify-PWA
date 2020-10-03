@@ -22,7 +22,7 @@
         <v-btn icon @click="openSettings = !openSettings">
           <v-icon>mdi-dots-vertical </v-icon>
           <List :open="openSettings">
-            <ListItem>Finished tasks</ListItem>
+            <ListItem @click="finishedTask"> Finished tasks </ListItem>
             <ListItem>Task lists</ListItem>
             <ListItem>More apps</ListItem>
           </List>
@@ -68,6 +68,14 @@ const props = {
   title: { default: "Report" },
 };
 
+const methods = {
+  finishedTask() {
+    this.$router.push({
+      name: "task.ends",
+    });
+  },
+};
+
 const components = {
   List,
   NavigationRoutes,
@@ -80,6 +88,7 @@ export default {
   props,
   components,
   computed,
+  methods,
 };
 </script>
 
