@@ -5,7 +5,7 @@ export const addNewListTask = (payload) => ({
 });
 
 export const addNewTaskToCurrentList = (current, task) => {
-	let newTask = { ...task, id: `${uuidv4()}` };
+	let newTask = { ...task, id: `${uuidv4()}`, list: current };
 	return { currentListTask: current, newTask };
 };
 

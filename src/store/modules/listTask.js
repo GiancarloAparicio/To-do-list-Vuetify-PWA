@@ -14,6 +14,7 @@ const listTask = {
 					create_at: moment().format('L'),
 					finish_at: '2020-10-05',
 					hour_at: '05:40',
+					list: 'Work',
 				},
 			],
 			Work: [
@@ -25,6 +26,7 @@ const listTask = {
 					create_at: moment().format('L'),
 					finish_at: '2020-10-05',
 					hour_at: '05:40',
+					list: 'Work',
 				},
 			],
 		},
