@@ -42,6 +42,7 @@ import ChooseListTask from "../../partials/ChooseListTask";
 import ButtonPlus from "../../partials/ButtonPlus";
 import moment from "moment";
 import { mapGetters } from "vuex";
+import { stringToUrl, emptyList } from "../../helpers/helper";
 
 const components = {
   ChooseListTask,
@@ -52,15 +53,7 @@ const computed = {
   ...mapGetters("listTask", ["getTasks"]),
   ...mapGetters("user", ["getUser"]),
   emptyList() {
-    if (this.getTasks[this.getUser.listTaskCurrent].list.length) {
-      let tasks = this.getTasks[this.getUser.listTaskCurrent].list;
-
-      for (let index = 0; index < tasks.length; index++) {
-        if (tasks[index].status === false) return false;
-      }
-      return true;
-    }
-    return true;
+    return emptyList(this.getTasks, this.getUser.listTaskCurrent);
   },
   isRouteChildren() {
     if (this.$route.name !== "task") {
@@ -80,7 +73,7 @@ const methods = {
   getTask(task) {
     this.$router.push({
       name: "task.show",
-      params: { id: task.name.replaceAll(" ", "-"), taskId: task.id },
+      params: { id: stringToUrl(task.name), taskId: task.id },
     });
   },
 };

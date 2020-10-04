@@ -1,79 +1,87 @@
 <template>
-	<div>
-		<v-select
-			block
-			dense
-			outlined
-			v-model="select"
-			:items="tasks"
-			label="List task"
-		/>
-	</div>
+  <div>
+    <v-select
+      v-if="emptyList"
+      block
+      dense
+      outlined
+      disabled
+      v-model="select"
+      :items="listTask"
+      label="List task"
+    />
+    <v-select
+      v-else
+      block
+      dense
+      outlined
+      v-model="select"
+      :items="listTask"
+      label="List task"
+    />
+  </div>
 </template>
 
 <script>
-	import { mapGetters, mapActions } from 'vuex';
-	import { listTask } from '../store/actions/user';
+import { mapGetters, mapActions } from "vuex";
+import { listTask } from "../store/actions/user";
+import { getAllLists } from "../helpers/helper";
 
-	const data = () => ({
-		select: 'All',
-	});
+const data = () => ({
+  select: "All",
+});
 
-	const computed = {
-		...mapGetters('listTask', ['getTasks']),
-		...mapGetters('user', ['getUser']),
-		tasks() {
-			if (this.getUser.listTaskCurrent) {
-				this.select = this.getUser.listTaskCurrent;
-			}
-			let listTask = [];
+const computed = {
+  ...mapGetters("listTask", ["getTasks"]),
+  ...mapGetters("user", ["getUser"]),
+  listTask() {
+    if (this.getUser.listTaskCurrent) {
+      this.select = this.getUser.listTaskCurrent;
+    }
+    let listTask = getAllLists(this.getTasks, this.all);
 
-			for (let task in this.getTasks) {
-				listTask.push(task);
-			}
-			if (this.all) {
-				return listTask;
-			}
+    return listTask;
+  },
+  emptyList() {
+    return JSON.stringify(this.listTask) == JSON.stringify(["All"]) ||
+      JSON.stringify(this.listTask) == JSON.stringify([])
+      ? true
+      : false;
+  },
+};
 
-			let i = listTask.indexOf('All');
-			listTask.splice(i, 1);
+const props = {
+  all: {
+    default: true,
+  },
+};
 
-			return listTask;
-		},
-	};
+const watch = {
+  select() {
+    if (this.select !== undefined) this.changeUser(listTask(this.select));
+    return this.select;
+  },
+  "getUser.listTaskCurrent"() {
+    this.select = this.getUser.listTaskCurrent;
+  },
+};
 
-	const props = {
-		all: {
-			default: true,
-		},
-	};
+const methods = {
+  ...mapActions("user", ["changeUser"]),
+};
 
-	const watch = {
-		select() {
-			if (this.select !== undefined) this.changeUser(listTask(this.select));
-			return this.select;
-		},
-		'getUser.listTaskCurrent'() {
-			this.select = this.getUser.listTaskCurrent;
-		},
-	};
-
-	const methods = {
-		...mapActions('user', ['changeUser']),
-	};
-
-	export default {
-		name: 'Task',
-		data,
-		computed,
-		watch,
-		methods,
-		props,
-	};
+export default {
+  name: "Task",
+  data,
+  computed,
+  watch,
+  methods,
+  props,
+};
 </script>
 
 <style scoped>
-	.v-btn {
-		z-index: 0 !important;
-	}
+.v-btn {
+  z-index: 0 !important;
+}
 </style>

@@ -6,8 +6,9 @@ const listTask = {
 	state: {
 		tasks: {
 			All: {
-				description: 'list',
+				description: 'Job List',
 				notification: false,
+				create_at: moment().format('L'),
 				list: [
 					{
 						name: 'Homework',
@@ -22,8 +23,9 @@ const listTask = {
 				],
 			},
 			Work: {
-				description: 'list',
+				description: 'Job List',
 				notification: false,
+				create_at: moment().format('L'),
 				list: [
 					{
 						name: 'Homework',
@@ -41,10 +43,25 @@ const listTask = {
 	},
 
 	mutations: {
-		handleTasks: (state, payload) => {
+		handleListsTasks: (state, payload) => {
 			state.tasks = {
 				...state.tasks,
 				...payload,
+			};
+		},
+
+		deleteListTask: (state, payload) => {
+			delete state.tasks[payload];
+			state.tasks = {
+				...state.tasks,
+				All: {
+					...state.tasks.All,
+					list: [
+						...state.tasks.All.list.filter(
+							(task) => task.list !== payload
+						),
+					],
+				},
 			};
 		},
 
@@ -113,7 +130,10 @@ const listTask = {
 
 	actions: {
 		changeTasks: (store, payload) => {
-			store.commit('handleTasks', payload);
+			store.commit('handleListsTasks', payload);
+		},
+		deleteListTask: (store, payload) => {
+			store.commit('deleteListTask', payload);
 		},
 
 		addNewTask: (store, payload) => {

@@ -42,6 +42,7 @@
 import ChooseListTask from "../../partials/ChooseListTask";
 import { mapGetters } from "vuex";
 import moment from "moment";
+import { stringToUrl, emptyList } from "../../helpers/helper";
 
 const methods = {
   getStatus(time) {
@@ -53,7 +54,7 @@ const methods = {
   getTask(task) {
     this.$router.push({
       name: "task.show",
-      params: { id: task.name.replaceAll(" ", "-"), taskId: task.id },
+      params: { id: stringToUrl(task.name), taskId: task.id },
     });
   },
 };
@@ -63,15 +64,7 @@ const components = { ChooseListTask };
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
   emptyList() {
-    if (this.getTasks["All"].list.length) {
-      let tasks = this.getTasks["All"].list;
-
-      for (let index = 0; index < tasks.length; index++) {
-        if (tasks[index].status === true) return false;
-      }
-      return true;
-    }
-    return true;
+    return emptyList(this.getTasks, "All", true);
   },
 };
 

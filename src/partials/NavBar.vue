@@ -23,7 +23,7 @@
           <v-icon>mdi-dots-vertical </v-icon>
           <List :open="openSettings">
             <ListItem @click="finishedTask"> Finished tasks </ListItem>
-            <TaskLists />
+            <TaskLists @click="closeSettings" />
             <ListItem>More apps</ListItem>
           </List>
         </v-btn>
@@ -70,6 +70,9 @@ const props = {
 };
 
 const methods = {
+  closeSettings() {
+    this.openSettings = false;
+  },
   finishedTask() {
     this.$router.push({
       name: "task.ends",

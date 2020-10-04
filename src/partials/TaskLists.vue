@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" persistent>
     <template v-slot:activator="{ on, attrs }">
-      <v-list-item v-bind="attrs" v-on="on">
+      <v-list-item v-bind="attrs" v-on="on" @click="click">
         <v-list-item-subtitle> Task lists </v-list-item-subtitle>
       </v-list-item>
     </template>
@@ -24,6 +24,7 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
+
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn outlined color="success" @click="dialog = false"> Cancel </v-btn>
@@ -34,6 +35,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { stringToUrl, getAllLists } from "../helpers/helper";
 
 const data = () => ({
   dialog: false,
@@ -43,21 +45,22 @@ const data = () => ({
 const props = ["listTask"];
 
 const methods = {
-  getList(e) {
-    console.log("index", e);
+  click() {
+    this.$emit("click");
+  },
+  getList(list) {
+    this.dialog = false;
+    this.$router.push({
+      name: "list.edit",
+      params: { name: stringToUrl(list), id: list },
+    });
   },
 };
 
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
   lists() {
-    let lists = [];
-    for (let list in this.getTasks) {
-      if (list !== "All") {
-        lists.push(list);
-      }
-    }
-    return lists;
+    return getAllLists(this.getTasks, false);
   },
 };
 

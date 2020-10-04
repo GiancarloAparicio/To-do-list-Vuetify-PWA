@@ -9,6 +9,16 @@ const home = {
 	},
 };
 
+const list = {
+	path: '/list/edit/:name',
+	name: 'list.edit',
+	component: () =>
+		import(/* webpackChunkName: "about" */ '../views/List/EditList.vue'),
+	meta: {
+		public: false,
+	},
+};
+
 const task = {
 	path: '/task',
 	name: 'task',
@@ -59,4 +69,4 @@ const about = {
 	},
 };
 
-export default [home, task, settings, about];
+export default [home, task, settings, about, list];

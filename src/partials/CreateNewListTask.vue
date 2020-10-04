@@ -44,6 +44,8 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { getAllLists } from "../helpers/helper";
+import moment from "moment";
 
 const data = () => ({
   dialog: false,
@@ -62,6 +64,7 @@ const methods = {
         this.changeTasks({
           [this.name]: {
             description: this.description,
+            create_at: moment().format("L"),
             list: [],
           },
         });
@@ -75,11 +78,7 @@ const methods = {
     this.dialog = false;
   },
   lists() {
-    let lists = [];
-    for (let list in this.getTasks) {
-      lists.push(list);
-    }
-    return lists;
+    return getAllLists(this.getTasks);
   },
 };
 
