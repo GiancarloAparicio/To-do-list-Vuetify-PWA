@@ -1,15 +1,27 @@
 <template>
-  <v-row justify="center">
+  <div class="text-center">
     <v-dialog v-model="dialog" width="70%" persistent>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon color="blue" dark v-bind="attrs" v-on="on">
+        <v-btn v-if="icon" icon color="blue" dark v-bind="attrs" v-on="on">
           <v-icon dark>mdi-format-list-bulleted-square</v-icon>
+        </v-btn>
+        <v-btn
+          class="mx-4 mt-10"
+          v-else
+          large
+          dark
+          color="green"
+          v-bind="attrs"
+          v-on="on"
+        >
+          <v-icon left> mdi-pencil </v-icon>
+          Edit
         </v-btn>
       </template>
 
       <v-card>
         <v-form class="px-7 py-7" ref="form">
-          <v-toolbar-title class="pb-7"> Create new list: </v-toolbar-title>
+          <v-toolbar-title class="pb-7">{{ title }} </v-toolbar-title>
           <v-text-field
             outlined
             v-model="name"
@@ -39,35 +51,36 @@
         </v-form>
       </v-card>
     </v-dialog>
-  </v-row>
+  </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { getAllLists } from "../helpers/helper";
+import { mapGetters } from "vuex";
+import { getAllLists, nameExistList } from "../helpers/helper";
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 
 const data = () => ({
   dialog: false,
   name: undefined,
   description: undefined,
-
   inputRules: [(v) => !!v || "Is required"],
 });
 
 const methods = {
-  ...mapActions("listTask", ["changeTasks"]),
   newList() {
     if (this.name !== undefined && this.description !== undefined) {
-      let existList = this.lists().filter((list) => list === this.name)[0];
-      if (existList === undefined) {
-        this.changeTasks({
+      if (nameExistList(this.getTasks, this.name)) {
+        let task = {
           [this.name]: {
             description: this.description,
             create_at: moment().format("L"),
+            id: `${uuidv4()}`,
             list: [],
           },
-        });
+        };
+
+        this.$emit("saveList", JSON.stringify(task));
       }
       this.closeForm();
     }
@@ -77,21 +90,26 @@ const methods = {
     this.$refs.form.resetValidation();
     this.dialog = false;
   },
-  lists() {
-    return getAllLists(this.getTasks);
-  },
 };
 
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
 };
 
+const props = {
+  title: {
+    default: "List:",
+  },
+  icon: {
+    default: true,
+  },
+};
+
 export default {
-  name: "CreateNewListTask",
+  name: "SaveListForm",
   data,
   methods,
   computed,
+  props,
 };
 </script>
-
-<style scoped></style>

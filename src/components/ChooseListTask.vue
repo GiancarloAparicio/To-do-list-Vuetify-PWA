@@ -71,7 +71,7 @@ const methods = {
 };
 
 export default {
-  name: "Task",
+  name: "ChooseListTask",
   data,
   computed,
   watch,

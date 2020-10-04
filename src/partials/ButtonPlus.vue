@@ -33,7 +33,7 @@
                   <ChooseListTask :all="false" />
                 </v-col>
                 <v-col cols="1" sm="1">
-                  <CreateNewListTask />
+                  <SaveListForm @saveList="saveList" title="Create new list:" />
                 </v-col>
               </v-row>
             </v-container>
@@ -70,10 +70,10 @@
 import { mapActions, mapGetters } from "vuex";
 import DatePicker from "../components/DatePicker";
 import HourPicker from "../components/HourPicker";
-import ChooseListTask from "../partials/ChooseListTask";
+import ChooseListTask from "../components/ChooseListTask";
 import { addNewTaskToCurrentList } from "../store/actions/listTask";
 import moment from "moment";
-import CreateNewListTask from "../partials/CreateNewListTask";
+import SaveListForm from "../components/SaveListForm";
 
 const data = () => ({
   dialog: false,
@@ -88,12 +88,15 @@ const components = {
   DatePicker,
   HourPicker,
   ChooseListTask,
-  CreateNewListTask,
+  SaveListForm,
 };
 
 const methods = {
-  ...mapActions("listTask", ["addNewTask"]),
+  ...mapActions("listTask", ["addNewTask", "changeTasks"]),
   ...mapActions("user", ["changeUser"]),
+  saveList(data) {
+    this.changeTasks(JSON.parse(data));
+  },
   chooseDate(date) {
     this.date = date;
   },

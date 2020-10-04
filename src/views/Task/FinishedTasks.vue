@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import ChooseListTask from "../../partials/ChooseListTask";
+import ChooseListTask from "../../components/ChooseListTask";
 import { mapGetters } from "vuex";
 import moment from "moment";
 import { stringToUrl, emptyList } from "../../helpers/helper";

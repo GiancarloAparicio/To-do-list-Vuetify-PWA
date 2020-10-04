@@ -55,14 +55,19 @@
         </v-btn>
       </v-bottom-navigation>
     </v-footer>
-    <DeleteTaskButton :currentTask="currentTask" />
+    <DeleteButton
+      @delete="deleteCurrentTask"
+      title="Delete task"
+      content=" Are you sure you want to delete the task? After this you will not be
+          able to recover your data"
+    />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Edit from "./Edit";
-import DeleteTaskButton from "../../components/DeleteTaskButton";
+import DeleteButton from "../../components/DeleteButton";
 
 const data = () => ({
   time: 100,
@@ -71,7 +76,7 @@ const data = () => ({
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
   currentTask() {
-    let currentTask = this.getTasks.All.list.filter(
+    let currentTask = this.getTasks["All"].list.filter(
       (task) => task.id === this.$route.params.taskId
     );
     return currentTask[0];
@@ -79,7 +84,7 @@ const computed = {
 };
 
 const methods = {
-  ...mapActions("listTask", ["editTask"]),
+  ...mapActions("listTask", ["editTask", "deleteTask"]),
   finishTask() {
     this.editTask({
       ...this.currentTask,
@@ -92,11 +97,15 @@ const methods = {
       name: "task",
     });
   },
+  deleteCurrentTask() {
+    this.deleteTask(this.currentTask);
+    this.back();
+  },
 };
 
 const components = {
   Edit,
-  DeleteTaskButton,
+  DeleteButton,
 };
 
 export default {

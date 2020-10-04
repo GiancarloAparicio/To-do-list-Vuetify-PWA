@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import ChooseListTask from "../../partials/ChooseListTask";
+import ChooseListTask from "../../components/ChooseListTask";
 import ButtonPlus from "../../partials/ButtonPlus";
 import moment from "moment";
 import { mapGetters } from "vuex";

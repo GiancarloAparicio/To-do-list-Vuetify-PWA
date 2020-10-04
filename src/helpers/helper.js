@@ -48,3 +48,18 @@ export function emptyList(listTasks, listName, getFinished = false) {
 	}
 	return true;
 }
+
+/**
+ * Check if the name is in Object of tasks
+ * @param {Object} listsName
+ * @param {String} name
+ * @return {Boolean}
+ */
+export function nameExistList(listsName, name) {
+	let lists = getAllLists(listsName);
+
+	if (lists.filter((list) => list === name)[0] === undefined) {
+		return true;
+	}
+	return false;
+}

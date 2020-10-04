@@ -10,10 +10,10 @@ const home = {
 };
 
 const list = {
-	path: '/list/edit/:name',
+	path: '/list/:name',
 	name: 'list.edit',
 	component: () =>
-		import(/* webpackChunkName: "about" */ '../views/List/EditList.vue'),
+		import(/* webpackChunkName: "about" */ '../views/List/List.vue'),
 	meta: {
 		public: false,
 	},

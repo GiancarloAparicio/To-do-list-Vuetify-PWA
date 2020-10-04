@@ -25,7 +25,7 @@
         <v-subheader>General</v-subheader>
         <v-list-item>
           <v-list-item-action>
-            <v-checkbox v-model="notifications"></v-checkbox>
+            <v-checkbox disabled v-model="getList.notification"></v-checkbox>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Notifications</v-list-item-title>
@@ -38,32 +38,52 @@
     </v-card-text>
 
     <v-container class="d-flex justify-center pb-8">
-      <DeleteListButton
-        @click="dialog = false"
-        dark
-        :currentList="$route.params.id"
+      <DeleteButton
+        title="Delete list task"
+        content="Are you sure you want to delete this to-do list? After this you will
+          not be able to recover your data"
+        @delete="deleteList"
       />
 
-      <v-btn class="mx-4 mt-10" large dark color="green">
-        <v-icon left> mdi-pencil </v-icon>
-        Edit
-      </v-btn>
+      <SaveListForm
+        @saveList="updateList"
+        :icon="false"
+        title="Update current list"
+      />
     </v-container>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import DeleteListButton from "../../components/DeleteListButton";
+import { mapActions, mapGetters } from "vuex";
+import DeleteButton from "../../components/DeleteButton";
+import SaveListForm from "../../components/SaveListForm";
+import { getAllLists } from "../../helpers/helper";
 
 const data = () => ({
   dialog: false,
-  notifications: false,
-  sound: true,
 });
 
 const methods = {
-  //
+  ...mapActions("listTask", ["deleteListTask", "editListTask"]),
+  updateList(data) {
+    let list = JSON.parse(data);
+    let name = getAllLists(JSON.parse(data))[0];
+
+    this.editListTask({
+      [name]: {
+        ...list[name],
+        id: this.getList.id,
+        list: [...this.getList.list],
+      },
+    });
+  },
+  deleteList() {
+    this.deleteListTask(this.$route.params.id);
+    this.$router.push({
+      name: "task",
+    });
+  },
 };
 
 const computed = {
@@ -80,11 +100,12 @@ const props = {
 };
 
 const components = {
-  DeleteListButton,
+  DeleteButton,
+  SaveListForm,
 };
 
 export default {
-  name: "EditList",
+  name: "List",
   data,
   props,
   methods,

@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import ChooseListTask from "./../../partials/ChooseListTask";
+import ChooseListTask from "./../../components/ChooseListTask";
 import DatePicker from "../../components/DatePicker";
 import HourPicker from "../../components/HourPicker";
 import { mapActions, mapGetters } from "vuex";
