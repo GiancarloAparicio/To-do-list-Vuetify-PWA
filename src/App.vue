@@ -2,7 +2,11 @@
   <v-app>
     <NavBar title="To do List" />
     <v-container>
-      <router-view />
+      <v-row>
+        <v-col>
+          <router-view />
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
