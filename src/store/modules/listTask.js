@@ -5,32 +5,38 @@ const listTask = {
 
 	state: {
 		tasks: {
-			All: [
-				{
-					name: 'Homework',
-					id: 'a1b83137-4720-4822-82d3-0ac2cb70216a',
-					description: 'To do homework',
-					notification: false,
-					create_at: moment().format('L'),
-					finish_at: '2020-10-05',
-					hour_at: '05:40',
-					list: 'Work',
-					status: false,
-				},
-			],
-			Work: [
-				{
-					name: 'Homework',
-					id: 'a1b83137-4720-4822-82d3-0ac2cb70216a',
-					description: 'To do homework',
-					notification: false,
-					create_at: moment().format('L'),
-					finish_at: '2020-10-05',
-					hour_at: '05:40',
-					list: 'Work',
-					status: false,
-				},
-			],
+			All: {
+				description: 'list',
+				notification: false,
+				list: [
+					{
+						name: 'Homework',
+						id: 'a1b83137-4720-4822-82d3-0ac2cb70216a',
+						description: 'To do homework',
+						create_at: moment().format('L'),
+						finish_at: '2020-10-05',
+						hour_at: '05:40',
+						list: 'Work',
+						status: false,
+					},
+				],
+			},
+			Work: {
+				description: 'list',
+				notification: false,
+				list: [
+					{
+						name: 'Homework',
+						id: 'a1b83137-4720-4822-82d3-0ac2cb70216a',
+						description: 'To do homework',
+						create_at: moment().format('L'),
+						finish_at: '2020-10-05',
+						hour_at: '05:40',
+						list: 'Work',
+						status: false,
+					},
+				],
+			},
 		},
 	},
 
@@ -45,38 +51,62 @@ const listTask = {
 		handleAddTask: (state, payload) => {
 			state.tasks = {
 				...state.tasks,
-				[payload.currentListTask]: [
+				[payload.currentListTask]: {
 					...state.tasks[payload.currentListTask],
-					payload.newTask,
-				],
-				All: [...state.tasks.All, payload.newTask],
+					list: [
+						...state.tasks[payload.currentListTask].list,
+						payload.newTask,
+					],
+				},
+				All: {
+					...state.tasks.All,
+					list: [...state.tasks.All.list, payload.newTask],
+				},
 			};
 		},
 
 		handleEditTask: (state, payload) => {
 			state.tasks = {
 				...state.tasks,
-				[payload.list]: [
-					...state.tasks[payload.list].filter(
-						(task) => task.id !== payload.id
-					),
-					payload,
-				],
-				All: [
-					...state.tasks.All.filter((task) => task.id !== payload.id),
-					payload,
-				],
+				[payload.list]: {
+					...state.tasks[payload.list],
+					list: [
+						...state.tasks[payload.list].list.filter(
+							(task) => task.id !== payload.id
+						),
+						payload,
+					],
+				},
+				All: {
+					...state.tasks.All,
+					list: [
+						...state.tasks.All.list.filter(
+							(task) => task.id !== payload.id
+						),
+						payload,
+					],
+				},
 			};
 		},
 		handleDeleteTask: (state, payload) => {
 			state.tasks = {
 				...state.tasks,
-				[payload.list]: [
-					...state.tasks[payload.list].filter(
-						(task) => task.id !== payload.id
-					),
-				],
-				All: [...state.tasks.All.filter((task) => task.id !== payload.id)],
+				[payload.list]: {
+					...state.tasks[payload.list],
+					list: [
+						...state.tasks[payload.list].list.filter(
+							(task) => task.id !== payload.id
+						),
+					],
+				},
+				All: {
+					...state.tasks.All,
+					list: [
+						...state.tasks.All.list.filter(
+							(task) => task.id !== payload.id
+						),
+					],
+				},
 			};
 		},
 	},

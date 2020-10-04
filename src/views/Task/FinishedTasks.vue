@@ -28,7 +28,7 @@
         @click="getTask(task)"
         border="right"
         :key="index"
-        v-for="(task, index) in getTasks['All']"
+        v-for="(task, index) in getTasks['All'].list"
         dark
         :color="getStatus(task.finish_at)"
       >
@@ -63,8 +63,8 @@ const components = { ChooseListTask };
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
   emptyList() {
-    if (this.getTasks["All"].length) {
-      let tasks = this.getTasks["All"];
+    if (this.getTasks["All"].list.length) {
+      let tasks = this.getTasks["All"].list;
 
       for (let index = 0; index < tasks.length; index++) {
         if (tasks[index].status === true) return false;

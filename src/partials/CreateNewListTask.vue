@@ -60,7 +60,10 @@ const methods = {
       let existList = this.lists().filter((list) => list === this.name)[0];
       if (existList === undefined) {
         this.changeTasks({
-          [this.name]: [],
+          [this.name]: {
+            description: this.description,
+            list: [],
+          },
         });
       }
       this.closeForm();

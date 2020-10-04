@@ -25,7 +25,7 @@
           @click="getTask(task)"
           border="right"
           :key="index"
-          v-for="(task, index) in getTasks[this.getUser.listTaskCurrent]"
+          v-for="(task, index) in getTasks[this.getUser.listTaskCurrent].list"
           dark
           :color="getStatus(task.finish_at)"
         >
@@ -52,8 +52,8 @@ const computed = {
   ...mapGetters("listTask", ["getTasks"]),
   ...mapGetters("user", ["getUser"]),
   emptyList() {
-    if (this.getTasks[this.getUser.listTaskCurrent].length) {
-      let tasks = this.getTasks[this.getUser.listTaskCurrent];
+    if (this.getTasks[this.getUser.listTaskCurrent].list.length) {
+      let tasks = this.getTasks[this.getUser.listTaskCurrent].list;
 
       for (let index = 0; index < tasks.length; index++) {
         if (tasks[index].status === false) return false;

@@ -126,16 +126,16 @@ const methods = {
       this.getUser.listTaskCurrent != "All"
     ) {
       let currentList = this.getUser.listTaskCurrent;
-      let newTask = {
-        name: this.name.trim(),
-        description: this.description.trim(),
-        notification: false,
-        create_at: moment().format("L"),
-        finish_at: this.date,
-        hour_at: this.hour,
-      };
 
-      this.addNewTask(addNewTaskToCurrentList(currentList, newTask));
+      this.addNewTask(
+        addNewTaskToCurrentList(currentList, {
+          name: this.name.trim(),
+          description: this.description.trim(),
+          create_at: moment().format("L"),
+          finish_at: this.date,
+          hour_at: this.hour,
+        })
+      );
       this.resetForm();
     }
   },

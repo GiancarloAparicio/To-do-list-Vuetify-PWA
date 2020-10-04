@@ -53,7 +53,9 @@ const computed = {
   lists() {
     let lists = [];
     for (let list in this.getTasks) {
-      lists.push(list);
+      if (list !== "All") {
+        lists.push(list);
+      }
     }
     return lists;
   },

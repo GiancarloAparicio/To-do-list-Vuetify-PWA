@@ -71,7 +71,7 @@ const data = () => ({
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
   currentTask() {
-    let currentTask = this.getTasks.All.filter(
+    let currentTask = this.getTasks.All.list.filter(
       (task) => task.id === this.$route.params.taskId
     );
     return currentTask[0];
