@@ -23,7 +23,7 @@
           <v-icon>mdi-dots-vertical </v-icon>
           <List :open="openSettings">
             <ListItem @click="finishedTask"> Finished tasks </ListItem>
-            <ListItem>Task lists</ListItem>
+            <TaskLists />
             <ListItem>More apps</ListItem>
           </List>
         </v-btn>
@@ -51,6 +51,7 @@ import { mapGetters } from "vuex";
 import List from "../components/List";
 import ListItem from "../components/ListItem";
 import NavigationRoutes from "../components/NavigationRoutes";
+import TaskLists from "../partials/TaskLists";
 
 const data = () => ({
   modalOpen: false,
@@ -80,6 +81,7 @@ const components = {
   List,
   NavigationRoutes,
   ListItem,
+  TaskLists,
 };
 
 export default {
