@@ -4,7 +4,7 @@
       <v-list>
         <v-list-item-content>
           <v-list-item-title class="headline mb-1">
-            {{ $route.params.name }}
+            {{ $route.params.id }}
           </v-list-item-title>
           <v-list-item-subtitle>
             {{ getList.create_at }}
@@ -70,12 +70,28 @@ const methods = {
     let list = JSON.parse(data);
     let name = getAllLists(JSON.parse(data))[0];
 
-    this.editListTask({
-      [name]: {
-        ...list[name],
-        id: this.getList.id,
-        list: [...this.getList.list],
+    let update = {
+      newList: {
+        [name]: {
+          ...list[name],
+          id: this.getList.id,
+          list: [
+            ...this.getList.list.map((task) => {
+              if (task.list === this.$route.params.id) {
+                task.list = name;
+              }
+              return task;
+            }),
+          ],
+        },
       },
+      newName: name,
+      old: this.$route.params.id,
+    };
+
+    this.editListTask(update);
+    this.$router.push({
+      name: "task",
     });
   },
   deleteList() {
@@ -114,5 +130,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

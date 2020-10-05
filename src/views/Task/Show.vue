@@ -38,6 +38,13 @@
       </v-card-text>
     </v-card>
 
+    <DeleteButton
+      @delete="deleteCurrentTask"
+      title="Delete task"
+      content=" Are you sure you want to delete the task? After this you will not be
+          able to recover your data"
+    />
+
     <v-footer absolute padless>
       <v-bottom-navigation>
         <v-btn @click="back">
@@ -48,19 +55,19 @@
 
         <Edit :task="currentTask" />
 
-        <v-btn @click="finishTask">
+        <v-btn @click="resetTask" v-if="currentTask.status">
+          <span>Reset task</span>
+
+          <v-icon>mdi-book-check-outline</v-icon>
+        </v-btn>
+
+        <v-btn @click="finishTask" v-else>
           <span>Finished task</span>
 
           <v-icon>mdi-bookmark-check</v-icon>
         </v-btn>
       </v-bottom-navigation>
     </v-footer>
-    <DeleteButton
-      @delete="deleteCurrentTask"
-      title="Delete task"
-      content=" Are you sure you want to delete the task? After this you will not be
-          able to recover your data"
-    />
   </div>
 </template>
 
@@ -89,6 +96,13 @@ const methods = {
     this.editTask({
       ...this.currentTask,
       status: true,
+    });
+    this.back();
+  },
+  resetTask() {
+    this.editTask({
+      ...this.currentTask,
+      status: false,
     });
     this.back();
   },

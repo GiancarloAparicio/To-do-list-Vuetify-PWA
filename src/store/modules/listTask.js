@@ -1,47 +1,10 @@
-import moment from 'moment';
+import { getTasks } from '../initialState/state';
 
 const listTask = {
 	namespaced: true,
 
 	state: {
-		tasks: {
-			All: {
-				description: 'All lists',
-				id: 'a1b83137-47d0-1718-82d3-0ac2cb70216a',
-				notification: true,
-				create_at: moment().format('L'),
-				list: [
-					{
-						name: 'Homework',
-						id: 'a1b83137-4720-4822-82d3-0ac2cb70216a',
-						description: 'To do homework',
-						create_at: moment().format('L'),
-						finish_at: '2020-10-05',
-						hour_at: '05:40',
-						list: 'Work',
-						status: false,
-					},
-				],
-			},
-			Work: {
-				description: 'Job List',
-				notification: true,
-				id: 'a1b83137-4720-4818-82d3-0ac2cb70216a',
-				create_at: moment().format('L'),
-				list: [
-					{
-						name: 'Homework',
-						id: 'a1b83137-4720-4822-82d3-0ac2cb70216a',
-						description: 'To do homework',
-						create_at: moment().format('L'),
-						finish_at: '2020-10-05',
-						hour_at: '05:40',
-						list: 'Work',
-						status: false,
-					},
-				],
-			},
-		},
+		tasks: getTasks(),
 	},
 
 	mutations: {
@@ -67,9 +30,19 @@ const listTask = {
 			};
 		},
 		editListTask: (state, payload) => {
+			delete state.tasks[payload.old];
 			state.tasks = {
 				...state.tasks,
-				...payload,
+				...payload.newList,
+				All: {
+					...state.tasks.All,
+					list: [
+						...state.tasks.All.list.filter(
+							(task) => task.list !== payload.old
+						),
+						...payload.newList[payload.newName].list,
+					],
+				},
 			};
 		},
 
@@ -161,6 +134,7 @@ const listTask = {
 
 	getters: {
 		getTasks: (state) => {
+			localStorage.setItem('tasks', JSON.stringify(state.tasks));
 			return state.tasks;
 		},
 	},
