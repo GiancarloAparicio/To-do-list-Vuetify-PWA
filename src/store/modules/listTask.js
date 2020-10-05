@@ -137,6 +137,10 @@ const listTask = {
 			localStorage.setItem('tasks', JSON.stringify(state.tasks));
 			return state.tasks;
 		},
+		getAllTasks: (state) => {
+			localStorage.setItem('tasks', JSON.stringify(state.tasks));
+			return state.tasks.All.list;
+		},
 	},
 };
 

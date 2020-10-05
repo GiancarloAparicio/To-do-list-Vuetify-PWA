@@ -10,9 +10,10 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn icon>
+        <!-- <v-btn icon>
           <v-icon>mdi-magnify</v-icon>
-        </v-btn>
+        </v-btn> -->
+        <SearchTask />
 
         <v-btn icon @click="openBell = !openBell">
           <v-icon>mdi-bell</v-icon>
@@ -52,6 +53,7 @@ import List from "../components/List";
 import ListItem from "../components/ListItem";
 import NavigationRoutes from "../components/NavigationRoutes";
 import TaskLists from "../partials/TaskLists";
+import SearchTask from "./SearchTask";
 
 const data = () => ({
   modalOpen: false,
@@ -85,6 +87,7 @@ const components = {
   NavigationRoutes,
   ListItem,
   TaskLists,
+  SearchTask,
 };
 
 export default {
