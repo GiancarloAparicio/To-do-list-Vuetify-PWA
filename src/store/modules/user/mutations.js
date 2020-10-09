@@ -11,11 +11,5 @@ const mutations = {
 			...payload,
 		};
 	},
-	handleDeleteUser: (state, payload) => {
-		state.user = {
-			...state.user,
-			...payload,
-		};
-	},
 };
 export default mutations;

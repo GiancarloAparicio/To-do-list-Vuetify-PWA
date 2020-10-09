@@ -10,9 +10,6 @@
 
         <v-spacer></v-spacer>
 
-        <!-- <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn> -->
         <SearchTask />
 
         <v-btn icon @click="openBell = !openBell">
@@ -33,7 +30,7 @@
     <v-navigation-drawer app v-model="modalOpen" absolute temporary>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+          <v-img :src="photo" alt="user" />
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -54,6 +51,7 @@ import ListItem from "../components/ListItem";
 import NavigationRoutes from "../components/NavigationRoutes";
 import TaskLists from "../partials/TaskLists";
 import SearchTask from "./SearchTask";
+import userDefault from "../assets/user-default.png";
 
 const data = () => ({
   modalOpen: false,
@@ -65,6 +63,18 @@ const data = () => ({
 
 const computed = {
   ...mapGetters("user", ["getUser"]),
+  photo() {
+    if (this.getUser.photo.alt) {
+      return this.getUser.photo.picture;
+    }
+    return userDefault;
+  },
+};
+
+const watch = {
+  "getUser.photo"() {
+    return this.getUser.photo;
+  },
 };
 
 const props = {
@@ -97,6 +107,7 @@ export default {
   components,
   computed,
   methods,
+  watch,
 };
 </script>
 

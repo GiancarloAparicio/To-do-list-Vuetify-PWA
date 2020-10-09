@@ -63,3 +63,38 @@ export function nameExistList(listsName, name) {
 	}
 	return false;
 }
+
+/**
+ * Saves an image in the localStorage and returns an object with the name
+ * and value of the image, dispatch is the necessary function to update the state
+ * @param {object} picture
+ * @param {object} dispatch
+ * @param {string} localName
+ * @return {object}
+ */
+export function savePictureToLocal(picture, dispatch, localName = 'photo') {
+	for (let index = 0, file; (file = picture[index]); index++) {
+		if (!file.type.match('image.*')) {
+			continue;
+		}
+
+		let reader = new FileReader();
+
+		reader.onload = ((photo) => (event) => {
+			let picture = {
+				alt: photo.name,
+				picture: event.target.result,
+			};
+
+			dispatch({
+				photo: picture,
+			});
+
+			localStorage.setItem(localName, JSON.stringify(picture));
+		})(file);
+
+		reader.readAsDataURL(file);
+	}
+
+	return JSON.parse(localStorage.getItem(localName));
+}

@@ -27,7 +27,7 @@
             <v-container>
               <v-row class="mx-auto">
                 <v-col cols="5" sm="5">
-                  <v-toolbar-title>Choose list:</v-toolbar-title>
+                  <v-toolbar-title>List:</v-toolbar-title>
                 </v-col>
                 <v-col cols="6" sm="6">
                   <ChooseListTask :all="false" />
@@ -121,15 +121,13 @@ const methods = {
       this.description.trim() != "" &&
       this.getUser.listTaskCurrent != "All"
     ) {
-
-
-      this.addNewTask( {
-          name: this.name.trim(),
-          description: this.description.trim(),
-          finish_at: this.date,
-          list:this.getUser.listTaskCurrent,
-          hour_at: this.hour,
-        });
+      this.addNewTask({
+        name: this.name.trim(),
+        description: this.description.trim(),
+        finish_at: this.date,
+        list: this.getUser.listTaskCurrent,
+        hour_at: this.hour,
+      });
       this.resetForm();
     }
   },

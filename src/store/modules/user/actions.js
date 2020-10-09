@@ -10,9 +10,6 @@ const actions = {
 	editUser: (store, payload) => {
 		store.commit('handleUpdateUser', payload);
 	},
-	deleteUser: (store, payload) => {
-		store.commit('handleDeleteUser', payload);
-	},
 };
 
 export default actions;
