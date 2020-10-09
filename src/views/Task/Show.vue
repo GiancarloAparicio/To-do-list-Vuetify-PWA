@@ -83,23 +83,20 @@ const data = () => ({
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
   currentTask() {
-    let currentTask = this.getTasks["All"].list.filter(
-      (task) => task.id === this.$route.params.taskId
-    );
-    return currentTask[0];
+    return this.$route.params.task;
   },
 };
 
 const methods = {
   ...mapActions("listTask", ["editTask", "deleteTask"]),
-  finishTask() {
+  finishTask(index) {
     this.editTask({
       ...this.currentTask,
       status: true,
     });
     this.back();
   },
-  resetTask() {
+  resetTask(index) {
     this.editTask({
       ...this.currentTask,
       status: false,

@@ -108,6 +108,9 @@ const methods = {
         hour_at: this.hour,
       });
       this.dialog = false;
+      this.$router.push({
+        name: "task",
+      });
     }
   },
 };

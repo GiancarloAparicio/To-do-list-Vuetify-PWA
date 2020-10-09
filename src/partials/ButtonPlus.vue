@@ -71,8 +71,6 @@ import { mapActions, mapGetters } from "vuex";
 import DatePicker from "../components/DatePicker";
 import HourPicker from "../components/HourPicker";
 import ChooseListTask from "../components/ChooseListTask";
-import { addNewTaskToCurrentList } from "../store/actions/listTask";
-import moment from "moment";
 import SaveListForm from "../components/SaveListForm";
 
 const data = () => ({
@@ -123,17 +121,15 @@ const methods = {
       this.description.trim() != "" &&
       this.getUser.listTaskCurrent != "All"
     ) {
-      let currentList = this.getUser.listTaskCurrent;
 
-      this.addNewTask(
-        addNewTaskToCurrentList(currentList, {
+
+      this.addNewTask( {
           name: this.name.trim(),
           description: this.description.trim(),
-          create_at: moment().format("L"),
           finish_at: this.date,
+          list:this.getUser.listTaskCurrent,
           hour_at: this.hour,
-        })
-      );
+        });
       this.resetForm();
     }
   },

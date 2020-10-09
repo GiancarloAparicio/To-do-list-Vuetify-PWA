@@ -24,7 +24,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { listTask } from "../store/actions/user";
 import { getAllLists } from "../helpers/helper";
 
 const data = () => ({
@@ -58,7 +57,7 @@ const props = {
 
 const watch = {
   select() {
-    if (this.select !== undefined) this.changeUser(listTask(this.select));
+    if (this.select !== undefined) this.changeListCurrent(this.select);
     return this.select;
   },
   "getUser.listTaskCurrent"() {
@@ -67,7 +66,7 @@ const watch = {
 };
 
 const methods = {
-  ...mapActions("user", ["changeUser"]),
+  ...mapActions("user", ["changeListCurrent"]),
 };
 
 export default {
