@@ -11,7 +11,7 @@
           v-on="on"
         >
           <v-icon left> mdi-alert </v-icon>
-          Delete
+          {{ button }}
         </v-btn>
       </template>
 
@@ -59,6 +59,9 @@ const props = {
   content: {
     default:
       " Are you sure you want to delete it? After this, you will not be able to recover your data",
+  },
+  button: {
+    default: "Delete",
   },
 };
 
