@@ -70,7 +70,7 @@ const methods = {
     if (2 <= daysLeft && daysLeft <= 7) return "info";
     return "success";
   },
-  getTask(task,index) {
+  getTask(task) {
     this.$router.push({
       name: "task.show",
       params: { id: stringToUrl(task.name), task: task },

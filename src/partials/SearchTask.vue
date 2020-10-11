@@ -51,7 +51,7 @@ const methods = {
     this.dialog = false;
     this.$router.push({
       name: "task.show",
-      params: { id: stringToUrl(task.name), taskId: task.id },
+      params: { id: stringToUrl(task.name), task: task },
     });
   },
 };
