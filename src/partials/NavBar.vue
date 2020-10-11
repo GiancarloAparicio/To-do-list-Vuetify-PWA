@@ -121,4 +121,16 @@ export default {
 .v-overlay__scrim {
   height: 100vh !important;
 }
+
+.show {
+  position: absolute;
+  transform: scale(1, 1);
+  transition: transform 0.3s;
+}
+
+.hidden {
+  position: absolute;
+  transform: scale(0, 0);
+  transition: transform 0.3s;
+}
 </style>

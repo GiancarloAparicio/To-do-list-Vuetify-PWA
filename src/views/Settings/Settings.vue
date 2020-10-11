@@ -16,15 +16,21 @@
             <v-list-item-icon>
               <v-icon>mdi-bookmark-check-outline</v-icon>
             </v-list-item-icon>
-            <v-list-item-subtitle>50%</v-list-item-subtitle>
+            <v-list-item-subtitle>
+              {{ getPercentageCompleted }}%
+            </v-list-item-subtitle>
           </v-list-item>
           <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-alarm-check</v-icon>
             </v-list-item-icon>
-            <v-list-item-subtitle>50%</v-list-item-subtitle>
+            <v-list-item-subtitle>
+              {{ getPercentageIncomplete }}%
+            </v-list-item-subtitle>
           </v-list-item>
         </v-list-item>
+
+        <v-divider></v-divider>
 
         <v-form ref="form" lazy-validation>
           <v-list-item>
@@ -46,7 +52,7 @@
             <v-list-item-icon>
               <v-icon>mdi-message-cog</v-icon>
             </v-list-item-icon>
-            <v-list-item>General notifications: </v-list-item>
+            <v-list-item>Notifications: </v-list-item>
 
             <v-checkbox v-model="notifications" />
           </v-list-item>
@@ -59,10 +65,8 @@
             <v-list-item class="w-30">
               <v-file-input
                 v-model="photo"
-                chips
                 show-size
                 counter
-                multiple
                 accept="image/png, image/jpeg, image/bmp"
                 label="File"
               />
@@ -77,7 +81,6 @@
             <v-list-item>
               <v-text-field
                 v-model="name"
-                label="Enter name"
                 :rules="dataRules"
                 hide-details="auto"
               />
@@ -147,6 +150,7 @@ const methods = {
         notifications: this.notifications,
       });
       if (this.photo) {
+        console.log("Adentro");
         savePictureToLocal(this.photo, this.editUser);
       }
       this.$router.push({ name: "task" });
@@ -156,6 +160,10 @@ const methods = {
 
 const computed = {
   ...mapGetters("user", ["getUser"]),
+  ...mapGetters("listTask", [
+    "getPercentageIncomplete",
+    "getPercentageCompleted",
+  ]),
   dataRules() {
     this.name = this.getUser.name;
     this.notifications = this.getUser.notifications;
@@ -181,4 +189,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

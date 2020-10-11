@@ -72,29 +72,81 @@ export function nameExistList(listsName, name) {
  * @param {string} localName
  * @return {object}
  */
-export function savePictureToLocal(picture, dispatch, localName = 'photo') {
-	for (let index = 0, file; (file = picture[index]); index++) {
-		if (!file.type.match('image.*')) {
-			continue;
-		}
-
-		let reader = new FileReader();
-
-		reader.onload = ((photo) => (event) => {
-			let picture = {
-				alt: photo.name,
-				picture: event.target.result,
-			};
-
-			dispatch({
-				photo: picture,
-			});
-
-			localStorage.setItem(localName, JSON.stringify(picture));
-		})(file);
-
-		reader.readAsDataURL(file);
+export function savePictureToLocal(file, dispatch, localName = 'photo') {
+	if (!file.type.match('image.*')) {
+		return;
 	}
 
+	let reader = new FileReader();
+	reader.onload = ((photo) => (event) => {
+		let picture = {
+			alt: photo.name,
+			picture: event.target.result,
+		};
+		dispatch({
+			photo: picture,
+		});
+
+		localStorage.setItem(localName, JSON.stringify(picture));
+	})(file);
+
+	reader.readAsDataURL(file);
+
 	return JSON.parse(localStorage.getItem(localName));
+}
+
+/**
+ * Calculate a color (red <-> green) depending on the passed parameter (0-100)
+ * @param {int} percentage
+ * @return {string} color
+ */
+export function getColorToPercentage(percentage, invert = false) {
+	let value = invert ? percentage : -(percentage - 100);
+	if (value < 10) {
+		return 'red accent-3';
+	}
+	if (10 <= value && value < 20) {
+		return 'red accent-2';
+	}
+	if (20 <= value && value < 30) {
+		return 'orange accent-3';
+	}
+	if (30 <= value && value < 40) {
+		return 'orange accent-2';
+	}
+	if (40 <= value && value < 50) {
+		return 'amber lighten-2';
+	}
+	if (50 <= value && value < 60) {
+		return 'lime accent-4';
+	}
+	if (60 <= value && value < 70) {
+		return 'lime accent-2';
+	}
+	if (70 <= value && value < 80) {
+		return 'light-green accent-2';
+	}
+	if (80 <= value && value < 90) {
+		return 'green accent-3';
+	}
+	if (90 <= value && value <= 100) {
+		return 'green accent-4';
+	}
+}
+
+/**
+ * Gets the percentage of tasks completed (true) or incomplete (false)
+ *  from the total state (100%)
+ * @param {object} state
+ * @param {boolean} condition
+ */
+export function getPercentageToState(state, condition = true) {
+	let total = state.tasks.All.list.length;
+	let result = state.tasks.All.list.reduce((result, task) => {
+		return task.status === condition ? result + 1 : result;
+	}, 0);
+	if (total) {
+		return (100 * result) / total;
+	}
+	return condition ? 0 : 100;
 }

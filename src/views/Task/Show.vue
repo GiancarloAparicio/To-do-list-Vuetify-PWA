@@ -12,18 +12,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider class="mx-4"></v-divider>
-      <v-list-item>
-        <v-list-item-icon>
-          <v-icon>mdi-clock-time-five</v-icon>
-        </v-list-item-icon>
-        <v-list-item-subtitle>Time limit:</v-list-item-subtitle>
-
-        <v-progress-linear :value="time" color="green" height="25">
-          <template v-slot="{ value }">
-            <strong class="white-text">{{ Math.ceil(value) }}%</strong>
-          </template>
-        </v-progress-linear>
-      </v-list-item>
+      <ProgressLinear title="Time limit:" />
     </v-card>
 
     <v-card class="mx-auto my-6">
@@ -75,6 +64,7 @@
 import { mapActions, mapGetters } from "vuex";
 import Edit from "./Edit";
 import DeleteButton from "../../components/DeleteButton";
+import ProgressLinear from "../../components/ProgressLinear";
 
 const data = () => ({
   time: 100,
@@ -117,6 +107,7 @@ const methods = {
 const components = {
   Edit,
   DeleteButton,
+  ProgressLinear,
 };
 
 export default {
@@ -129,10 +120,4 @@ export default {
 </script>
 
 <style scoped>
-.white-text {
-  color: white;
-}
-.black-text {
-  color: black;
-}
 </style>

@@ -74,7 +74,7 @@ const methods = {
         let task = {
           [this.name]: {
             description: this.description,
-            create_at: moment().format("L"),
+            create_at: moment().format("DD-MM-YYYY HH:mm:ss"),
             id: `${uuidv4()}`,
             list: [],
           },
