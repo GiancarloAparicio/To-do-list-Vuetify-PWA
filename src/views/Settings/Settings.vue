@@ -150,7 +150,6 @@ const methods = {
         notifications: this.notifications,
       });
       if (this.photo) {
-        console.log("Adentro");
         savePictureToLocal(this.photo, this.editUser);
       }
       this.$router.push({ name: "task" });

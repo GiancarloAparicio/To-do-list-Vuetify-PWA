@@ -16,9 +16,10 @@ const actions = {
 		store.commit('handleAddTask', {
 			...payload,
 			id: `${uuidv4()}`,
-			create_at: moment().format('DD-MM-YYYY HH:mm:ss'),
+			create_at: moment().format('YYYY-MM-DD HH:mm:ss'),
 			status: false,
-			finish_at: moment(payload.finish_at).format('DD-MM-YYYY HH:mm:ss'),
+			finish_at: moment(payload.finish_at).format('YYYY-MM-DD'),
+			hour_at: payload.hour_at + ':00',
 		});
 	},
 

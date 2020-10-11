@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Task Summary</h2>
+    <p class="ml-3 text-h5">Task Summary</p>
     <v-divider class="py-4" />
 
     <v-card>
@@ -46,8 +46,8 @@ const data = () => ({
 });
 
 const methods = {
-  calculateTime(time) {
-    return moment(time, "DD-MM-YYYY HH:mm:ss").calendar();
+  calculateTime(timeCreated) {
+    return moment(timeCreated, "YYYY-MM-DD HH:mm:ss").calendar();
   },
 };
 

@@ -12,7 +12,11 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider class="mx-4"></v-divider>
-      <ProgressLinear title="Time limit:" />
+      <ProgressLinear
+        title="Time limit:"
+        :invert="true"
+        :value="calculateProgress(currentTask)"
+      />
     </v-card>
 
     <v-card class="mx-auto my-6">
@@ -65,10 +69,7 @@ import { mapActions, mapGetters } from "vuex";
 import Edit from "./Edit";
 import DeleteButton from "../../components/DeleteButton";
 import ProgressLinear from "../../components/ProgressLinear";
-
-const data = () => ({
-  time: 100,
-});
+import moment from "moment";
 
 const computed = {
   ...mapGetters("listTask", ["getTasks"]),
@@ -102,6 +103,28 @@ const methods = {
     this.deleteTask(this.currentTask);
     this.back();
   },
+  calculateProgress(task) {
+    let finish = task.finish_at + " " + task.hour_at;
+    let today = moment().format("YYYY-MM-DD HH:mm:ss");
+    let created = task.create_at.split(" ");
+
+    if (created[0] === task.finish_at) {
+      let todayHour = today.split(" ")[1].replaceAll(":", "");
+      if (task.hour_at < todayHour) {
+        return 0;
+      }
+    }
+
+    let percentage =
+      (moment(finish).diff(today, "minutes") * 100) /
+      moment(finish).diff(task.create_at, "minutes");
+
+    if (percentage < 0) {
+      return 0;
+    }
+
+    return percentage;
+  },
 };
 
 const components = {
@@ -112,12 +135,9 @@ const components = {
 
 export default {
   name: "Show",
-  data,
   computed,
   methods,
   components,
 };
 </script>
 
-<style scoped>
-</style>
