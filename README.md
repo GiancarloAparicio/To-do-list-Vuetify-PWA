@@ -1,23 +1,9 @@
 # to-do-list
 
-## Project setup
 
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
+    Aplicacion “To do list”, con vuetify, mensajes push, notificaciones, monitoreo de las tareas y listas del usuario
 
-```
-npm run serve
-```
+Demo [To do list](https://gallant-bell-8fb1b9.netlify.app)
 
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Icons
-
-Iconos diseñados por <a href="https://www.flaticon.es/autores/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.es/" title="Flaticon"> www.flaticon.es</a>
+Iconos diseñados por [DinosoftLabs](https://www.flaticon.es/autores/dinosoftlabs)
