@@ -95,9 +95,7 @@ const methods = {
     this.back();
   },
   back() {
-    this.$router.push({
-      name: "task",
-    });
+    this.$router.go(-1);
   },
   deleteCurrentTask() {
     this.deleteTask(this.currentTask);

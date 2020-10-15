@@ -69,11 +69,11 @@ const data = () => ({
 
 const methods = {
   newList() {
-    if (this.name !== undefined && this.description !== undefined) {
+    if (this.name.trim() && this.description.trim()) {
       if (nameExistList(this.getTasks, this.name)) {
         let task = {
-          [this.name]: {
-            description: this.description,
+          [this.name.trim()]: {
+            description: this.description.trim(),
             create_at: moment().format("YYYY-MM-DD HH:mm:ss"),
             id: `${uuidv4()}`,
             list: [],

@@ -94,12 +94,7 @@ const methods = {
     this.hour = hour;
   },
   updateTask() {
-    if (
-      this.date != undefined &&
-      this.hour != undefined &&
-      this.name.trim() != "" &&
-      this.description.trim() != ""
-    ) {
+    if (this.date && this.hour && this.name.trim() && this.description.trim()) {
       this.editTask({
         ...this.task,
         name: this.name.trim(),

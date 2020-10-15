@@ -115,17 +115,17 @@ const methods = {
   },
   createTask() {
     if (
-      this.date != undefined &&
-      this.hour != undefined &&
-      this.name.trim() != "" &&
-      this.description.trim() != "" &&
+      this.date &&
+      this.hour &&
+      this.name.trim() &&
+      this.description.trim() &&
       this.getUser.listTaskCurrent != "All"
     ) {
       this.addNewTask({
         name: this.name.trim(),
         description: this.description.trim(),
         finish_at: this.date,
-        list: this.getUser.listTaskCurrent,
+        list: this.getUser.listTaskCurrent.trim(),
         hour_at: this.hour,
       });
       this.resetForm();

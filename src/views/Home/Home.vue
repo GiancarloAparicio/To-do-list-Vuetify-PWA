@@ -9,11 +9,13 @@
         icon="mdi-check-bold"
         :invert="true"
         :value="getPercentageCompleted"
+        @click="goToCompleted()"
       />
       <ProgressLinear
         title="Remaining"
         icon="mdi-alert-octagon"
         :value="getPercentageIncomplete"
+        @click="goToIncomplete()"
       />
 
       <v-card-text>
@@ -21,7 +23,7 @@
 
         <v-timeline align-top dense>
           <v-timeline-item v-for="(task, index) in lastTask" :key="index" small>
-            <div>
+            <div @click="goToTask(task)">
               <div class="font-weight-normal">
                 <strong>{{ task.name }}</strong> <>
                 {{ calculateTime(task.create_at) }}
@@ -39,6 +41,7 @@
 import { mapGetters } from "vuex";
 import ProgressLinear from "../../components/ProgressLinear";
 import moment from "moment";
+import { stringToUrl } from "../../helpers/helper";
 
 //:color="message.color"  (task linea)
 const data = () => ({
@@ -48,6 +51,22 @@ const data = () => ({
 const methods = {
   calculateTime(timeCreated) {
     return moment(timeCreated, "YYYY-MM-DD HH:mm:ss").calendar();
+  },
+  goToTask(task) {
+    this.$router.push({
+      name: "task.show",
+      params: { id: stringToUrl(task.name), task: task },
+    });
+  },
+  goToIncomplete() {
+    this.$router.push({
+      name: "task",
+    });
+  },
+  goToCompleted() {
+    this.$router.push({
+      name: "task.ends",
+    });
   },
 };
 

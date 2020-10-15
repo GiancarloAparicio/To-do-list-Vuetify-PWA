@@ -35,6 +35,20 @@
         {{ task.name }}
       </v-alert>
     </v-container>
+
+    <v-footer absolute padless>
+      <v-bottom-navigation>
+        <v-btn @click="goToBack">
+          <span>Back</span>
+          <v-icon>mdi-backburger</v-icon>
+        </v-btn>
+
+        <v-btn @click="goToIncomplete">
+          <span>Tasks</span>
+          <v-icon>mdi-book-check-outline</v-icon>
+        </v-btn>
+      </v-bottom-navigation>
+    </v-footer>
   </div>
 </template>
 
@@ -54,7 +68,15 @@ const methods = {
   getTask(task) {
     this.$router.push({
       name: "task.show",
-      params: { id: stringToUrl(task.name), task: task  },
+      params: { id: stringToUrl(task.name), task: task },
+    });
+  },
+  goToBack() {
+    this.$router.go(-1);
+  },
+  goToIncomplete() {
+    this.$router.push({
+      name: "task",
     });
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <v-list-item>
+  <v-list-item @click="click">
     <v-list-item-icon>
       <v-icon>{{ icon }}</v-icon>
     </v-list-item-icon>
@@ -24,7 +24,9 @@ const data = () => ({
 });
 
 const methods = {
-  //
+  click() {
+    this.$emit("click");
+  },
 };
 
 const props = {
@@ -49,12 +51,21 @@ const computed = {
   },
 };
 
+const watch = {
+  percentage() {
+    if (this.percentage == 0) {
+      console.log("progress 0");
+    }
+  },
+};
+
 export default {
   name: "ProgressLinear",
   data,
   props,
   methods,
   computed,
+  watch,
 };
 </script>
 
