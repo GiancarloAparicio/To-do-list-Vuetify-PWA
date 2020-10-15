@@ -52,8 +52,7 @@ const task = {
 const settings = {
 	path: '/settings',
 	name: 'settings',
-	component: () =>
-		import(/* webpackChunkName: "about" */ '../views/Settings/Settings.vue'),
+	component: () => import('../views/Settings/Settings.vue'),
 	meta: {
 		public: true,
 	},
@@ -62,11 +61,19 @@ const settings = {
 const about = {
 	path: '/about',
 	name: 'about',
-	component: () =>
-		import(/* webpackChunkName: "about" */ '../views/About/About.vue'),
+	component: () => import('../views/About/About.vue'),
 	meta: {
 		public: true,
 	},
 };
 
-export default [home, task, settings, about, list];
+const path404 = {
+	path: '*',
+	name: '404',
+	component: () => import('../views/errors/404.vue'),
+	meta: {
+		public: true,
+	},
+};
+
+export default [home, task, settings, about, list, path404];
