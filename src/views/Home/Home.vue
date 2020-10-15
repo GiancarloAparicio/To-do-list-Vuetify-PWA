@@ -43,7 +43,6 @@ import ProgressLinear from "../../components/ProgressLinear";
 import moment from "moment";
 import { stringToUrl } from "../../helpers/helper";
 
-//:color="message.color"  (task linea)
 const data = () => ({
   time: 50,
 });
